@@ -3,46 +3,47 @@ package com.nopcommerce.user;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import commons.BaseTest;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
 
-public class User_01_Register {
+public class User_01_Register extends BaseTest {
 	WebDriver driver;
-	String projectPath = System.getProperty("user.dir");
+//	String projectPath = System.getProperty("user.dir");
 	String firstName, lastName, emailAddress, password;
 	
 	HomePageObject homePage;
 	RegisterPageObject registerPage;
 	
-	@BeforeClass
-	public void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
-		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		
+	
+	@Parameters("browser")
+    @BeforeClass
+	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName);
+		driver.get("https://demo.nopcommerce.com/");
 		homePage = new HomePageObject(driver);
 		registerPage = new RegisterPageObject(driver);
-		
+
 		firstName = "Le";
 		lastName = "Thanh";
 		emailAddress = "afc" + getRandomNumber() + "@mail.vn";
 		password = "123456";
-		
-		driver.get("https://demo.nopcommerce.com/");
-
 	}
 
 	@Test
 	public void TC_01_Register_Empty_Data() {
 		System.out.println("Register 01 - Step 01: Click to Register link");
 		homePage.clickToRegisterLink();
-		
+
 		System.out.println("Register 01 - Step 02: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
