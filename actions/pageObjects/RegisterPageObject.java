@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import commons.PageGeneraterManager;
 import pageUIs.RegisterPageUI;
 
 public class RegisterPageObject extends BasePage {
@@ -67,9 +68,10 @@ public class RegisterPageObject extends BasePage {
 		sendKeyToElement(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXT_BOX, value);
 	}
 
-	public void clickToLogoutLink() {
+	public HomePageObject clickToLogoutLink() {
 		waitForElementClickable(driver, RegisterPageUI.LOGOUT_LINK);
 		clickToElement(driver,  RegisterPageUI.LOGOUT_LINK);
+		return PageGeneraterManager.getHomePageObject(driver);
 	}
 
 	public String getRegisterSuccessMessage() {

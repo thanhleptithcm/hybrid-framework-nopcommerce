@@ -1,11 +1,6 @@
 package com.nopcommerce.user;
 
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -13,12 +8,12 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
+import commons.PageGeneraterManager;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
 
 public class User_01_Register extends BaseTest {
 	WebDriver driver;
-//	String projectPath = System.getProperty("user.dir");
 	String firstName, lastName, emailAddress, password;
 	
 	HomePageObject homePage;
@@ -30,8 +25,8 @@ public class User_01_Register extends BaseTest {
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
 		driver.get("https://demo.nopcommerce.com/");
-		homePage = new HomePageObject(driver);
-		registerPage = new RegisterPageObject(driver);
+		
+	 	homePage = PageGeneraterManager.getHomePageObject(driver);
 
 		firstName = "Le";
 		lastName = "Thanh";
@@ -42,7 +37,7 @@ public class User_01_Register extends BaseTest {
 	@Test
 	public void TC_01_Register_Empty_Data() {
 		System.out.println("Register 01 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 
 		System.out.println("Register 01 - Step 02: Click to Register button");
 		registerPage.clickToRegisterButton();
@@ -57,7 +52,7 @@ public class User_01_Register extends BaseTest {
 	@Test 
 	public void TC_02_Register_Invalid_Email() {
 		System.out.println("Register 02 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 		
 		System.out.println("Register 02 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
@@ -76,7 +71,7 @@ public class User_01_Register extends BaseTest {
 	@Test
 	public void TC_03_Register_Success() {
 		System.out.println("Register 03 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 		
 		System.out.println("Register 03 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
@@ -99,7 +94,7 @@ public class User_01_Register extends BaseTest {
 	@Test
 	public void TC_04_Register_Existing_Email() {
 		System.out.println("Register 04 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 		
 		System.out.println("Register 04 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
@@ -119,7 +114,7 @@ public class User_01_Register extends BaseTest {
 	@Test
 	public void TC_05_Register_Password_Less_Than_6_Char() {
 		System.out.println("Register 05 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 		
 		System.out.println("Register 05 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
@@ -139,7 +134,7 @@ public class User_01_Register extends BaseTest {
 	@Test
 	public void TC_06_Register_Invalid_Confirm_Password() {
 		System.out.println("Register 06 - Step 01: Click to Register link");
-		homePage.clickToRegisterLink();
+		registerPage = homePage.clickToRegisterLink();
 		
 		System.out.println("Register 06 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
@@ -160,16 +155,4 @@ public class User_01_Register extends BaseTest {
 		driver.quit();
 	}
 
-	public void sleepInSecond(long second) {
-		try {
-			Thread.sleep(second * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public int getRandomNumber() {
-		Random rand = new Random();
-		return rand.nextInt(99999);
-	}
 }
