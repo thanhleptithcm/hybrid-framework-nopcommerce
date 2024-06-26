@@ -18,7 +18,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.AddressesPageObject;
+import pageObjects.CustomerInfoPageObject;
 import pageUIs.BasePageUI;
+import pageUIs.MyAccountPageUI;
 
 public class BasePage {
 
@@ -176,7 +179,7 @@ public class BasePage {
 
 	public void selectItemInCustomDropdown(WebDriver driver, String parentXpath, String childXpath, String expectedItemText) {
 		getWebElementByXpath(driver, parentXpath).click();
-		sleepInsecond(1);
+		sleepInSecond(1);
 
 		WebDriverWait explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		List<WebElement> allItems = explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXpath(childXpath)));
@@ -184,7 +187,7 @@ public class BasePage {
 		for (WebElement item : allItems) {
 			if (item.getText().trim().equals(expectedItemText)) {
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", item);
-				sleepInsecond(1);
+				sleepInSecond(1);
 				item.click();
 				break;
 			}
@@ -326,7 +329,7 @@ public class BasePage {
 		WebElement element = getWebElement(driver, locator);
 		String originalStyle = element.getAttribute("style");
 		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style", "border: 2px solid red; border-style: dashed;");
-		sleepInsecond(1);
+		sleepInSecond(1);
 		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style", originalStyle);
 	}
 
@@ -482,11 +485,24 @@ public class BasePage {
 		getWebElementByXpath(driver, BasePageUI.UPLOAD_FILE).sendKeys(fullFileName);
 	}
 
-	public void sleepInsecond(long second) {
+	public void sleepInSecond(long second) {
 		try {
 			Thread.sleep(second * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public CustomerInfoPageObject clickToCustomerInfoPage(WebDriver driver) {
+		waitForElementClickable(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Customer info"));
+		clickToElement(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Customer info"));
+		return PageGeneraterManager.getCustomerInfoPageObject(driver);
+	}
+	
+
+	public AddressesPageObject clickToAddressesPageObject(WebDriver driver) {
+		waitForElementClickable(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Addresses"));
+		clickToElement(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Addresses"));
+		return PageGeneraterManager.getAddressesPageObject(driver);
 	}
 }

@@ -36,4 +36,5 @@ public class LoginPageObject extends BasePage {
 		waitForElementVisible(driver, LoginPageUI.LOGIN_ERROR_MESSAGE);
 		return getElementText(driver, LoginPageUI.LOGIN_ERROR_MESSAGE);
 	}
+
 }

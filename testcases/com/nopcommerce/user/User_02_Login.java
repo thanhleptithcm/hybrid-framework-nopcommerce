@@ -29,6 +29,7 @@ public class User_02_Login extends BaseTest {
 		driver = getBrowserDriver(browserName);
 		driver.get("https://demo.nopcommerce.com/");
 		
+		
 		homePage = PageGeneraterManager.getHomePageObject(driver);
 
 		firstName = "Le";
@@ -148,6 +149,9 @@ public class User_02_Login extends BaseTest {
 		
 		System.out.println("Login 06 - Step 05: Click to My Account link");
 		myAccountPage = homePage.clickToMyAccountLink();
+		
+		System.out.println("Login 05 - Step 04: Verify My Account displayed");
+		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
 	}
 	
 	@AfterClass
