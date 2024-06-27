@@ -95,7 +95,7 @@ public class User_03_My_Account extends BaseTest {
 	@Test
 	public void My_Account_01_Update_Info_Customer() {
 		System.out.println("My Account 01 - Step 01: Click to Customer Info link");
-		customerInfoPage = myAccountPage.clickToCustomerInfoPage(driver);
+		customerInfoPage = (CustomerInfoPageObject) myAccountPage.openPageAtMyAccountByName(driver, "Customer info");
 		
 		System.out.println("My Account 01 - Step 02: Input to required fields");
 		customerInfoPage.clickToFemaleRadioButton();
@@ -130,13 +130,12 @@ public class User_03_My_Account extends BaseTest {
 	@Test
 	public void My_Account_02_Add_Addresses_Customer() {
 		System.out.println("My Account 02 - Step 01: Click to Addresses link");
-		addressesPage = customerInfoPage.clickToAddressesPageObject(driver);
-		
+		addressesPage = (AddressesPageObject) customerInfoPage.openPageAtMyAccountByName(driver, "Addresses");
 		
 	}
 
 	@AfterClass
 	public void afterClass() {
-//		driver.quit();
+		driver.quit();
 	}
 }

@@ -493,16 +493,16 @@ public class BasePage {
 		}
 	}
 	
-	public CustomerInfoPageObject clickToCustomerInfoPage(WebDriver driver) {
-		waitForElementClickable(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Customer info"));
-		clickToElement(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Customer info"));
-		return PageGeneraterManager.getCustomerInfoPageObject(driver);
-	}
-	
-
-	public AddressesPageObject clickToAddressesPageObject(WebDriver driver) {
-		waitForElementClickable(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Addresses"));
-		clickToElement(driver, String.format(MyAccountPageUI.DYNAMIC_MENU_BY_NAME, "Addresses"));
-		return PageGeneraterManager.getAddressesPageObject(driver);
+	public  BasePage openPageAtMyAccountByName(WebDriver driver, String pageName) {
+		waitForElementClickable(driver, String.format(BasePageUI.DYNAMIC_PAGE_LINK_AT_MY_ACCOUNT_AREA, pageName));
+		clickToElement(driver, String.format(BasePageUI.DYNAMIC_PAGE_LINK_AT_MY_ACCOUNT_AREA, pageName));
+		switch(pageName){
+			case "Customer info":
+				return PageGeneraterManager.getCustomerInfoPageObject(driver);
+			case "Addresses":
+				return PageGeneraterManager.getAddressesPageObject(driver);
+			default:
+				throw new RuntimeException("Invalid page name at My Account area");
+		}
 	}
 }
