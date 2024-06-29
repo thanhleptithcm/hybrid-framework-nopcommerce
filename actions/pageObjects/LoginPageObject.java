@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import commons.LocatorType;
 import pageUIs.LoginPageUI;
 
 public class LoginPageObject extends BasePage {
@@ -29,12 +30,12 @@ public class LoginPageObject extends BasePage {
 
 	public String getErrorMessageAtEmailTextBox() {
 		waitForElementVisible(driver, LoginPageUI.EMAIL_ERROR_MESSAGE);
-		return getElementText(driver, LoginPageUI.EMAIL_ERROR_MESSAGE);
+		return getElementText(driver, LoginPageUI.EMAIL_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 
 	public String getErrorMessageLoginUnsuccessful() {
 		waitForElementVisible(driver, LoginPageUI.LOGIN_ERROR_MESSAGE);
-		return getElementText(driver, LoginPageUI.LOGIN_ERROR_MESSAGE);
+		return getElementText(driver, LoginPageUI.LOGIN_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 
 }

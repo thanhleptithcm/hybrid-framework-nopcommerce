@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import commons.LocatorType;
 import pageUIs.CustomerInfoUI;
 
 public class CustomerInfoPageObject extends BasePage {
@@ -14,7 +15,7 @@ public class CustomerInfoPageObject extends BasePage {
 
 	public void clickToFemaleRadioButton() {
 		waitForElementVisible(driver, CustomerInfoUI.FEMALE_RADIO_BUTTON);
-		checkToDefaultCheckboxRadio(driver, CustomerInfoUI.FEMALE_RADIO_BUTTON);
+		checkToDefaultCheckboxRadio(driver, CustomerInfoUI.FEMALE_RADIO_BUTTON, LocatorType.XPATH);
 	}
 
 	public void inputToFirstNameTextBox(String value) {
@@ -29,17 +30,17 @@ public class CustomerInfoPageObject extends BasePage {
 
 	public void chooseDayDropdown(String value) {
 		waitForElementClickable(driver, CustomerInfoUI.DAY_DROPDOWN);
-		selectItemInDefaultDropdown(driver, value, CustomerInfoUI.DAY_DROPDOWN);
+		selectItemInDefaultDropdown(driver, value, CustomerInfoUI.DAY_DROPDOWN, LocatorType.XPATH);
 	}
 
 	public void chooseMonthDropdown(String value) {
 		waitForElementClickable(driver, CustomerInfoUI.MONTH_DROPDOWN);
-		selectItemInDefaultDropdown(driver, value, CustomerInfoUI.MONTH_DROPDOWN);
+		selectItemInDefaultDropdown(driver, value, CustomerInfoUI.MONTH_DROPDOWN, LocatorType.XPATH);
 	}
 
 	public void chooseYearDropdown(String value) {
 		waitForElementClickable(driver, CustomerInfoUI.YEAR_DROPDOWN);
-		selectItemInDefaultDropdown(driver, value, CustomerInfoUI.YEAR_DROPDOWN);
+		selectItemInDefaultDropdown(driver, value, CustomerInfoUI.YEAR_DROPDOWN, LocatorType.XPATH);
 	}
 
 
@@ -60,41 +61,41 @@ public class CustomerInfoPageObject extends BasePage {
 
 	public boolean isFemaleRadioButtonSelected() {
 		waitForElementVisible(driver, CustomerInfoUI.FEMALE_RADIO_BUTTON);
-		return isElementSelected(driver, CustomerInfoUI.FEMALE_RADIO_BUTTON);
+		return isElementSelected(driver, CustomerInfoUI.FEMALE_RADIO_BUTTON, LocatorType.XPATH);
 	}
 
 	public String getValueAtFirstNameTextBox() {
 		waitForElementVisible(driver, CustomerInfoUI.FIRST_NAME_TEXT_BOX);
-		return getElementAttribute(driver,CustomerInfoUI.FIRST_NAME_TEXT_BOX, "value");
+		return getElementAttribute(driver,CustomerInfoUI.FIRST_NAME_TEXT_BOX, LocatorType.XPATH, "value");
 	}
 
 	public String getValueAtLastNameTextBox() {
 		waitForElementVisible(driver, CustomerInfoUI.LAST_NAME_TEXT_BOX);
-		return getElementAttribute(driver,CustomerInfoUI.LAST_NAME_TEXT_BOX, "value");
+		return getElementAttribute(driver,CustomerInfoUI.LAST_NAME_TEXT_BOX, LocatorType.XPATH, "value");
 	}
 
 	public String getValueAtDayDropdown() {
 		waitForElementVisible(driver, CustomerInfoUI.DAY_DROPDOWN);
-		return getSelectedItemDefaultDropdown(driver, CustomerInfoUI.DAY_DROPDOWN);
+		return getSelectedItemDefaultDropdown(driver, CustomerInfoUI.DAY_DROPDOWN, LocatorType.XPATH);
 	}
 
 	public String getValueAtMonthDropdown() {
 		waitForElementVisible(driver, CustomerInfoUI.MONTH_DROPDOWN);
-		return getSelectedItemDefaultDropdown(driver, CustomerInfoUI.MONTH_DROPDOWN);
+		return getSelectedItemDefaultDropdown(driver, CustomerInfoUI.MONTH_DROPDOWN, LocatorType.XPATH);
 	}
 
 	public String getValueAtYearDropdown() {
 		waitForElementVisible(driver, CustomerInfoUI.YEAR_DROPDOWN);
-		return getSelectedItemDefaultDropdown(driver, CustomerInfoUI.YEAR_DROPDOWN);
+		return getSelectedItemDefaultDropdown(driver, CustomerInfoUI.YEAR_DROPDOWN, LocatorType.XPATH);
 	}
 
 	public String getValueAtEmailTextBox() {
 		waitForElementVisible(driver, CustomerInfoUI.EMAIL_TEXT_BOX);
-		return getElementAttribute(driver,CustomerInfoUI.EMAIL_TEXT_BOX, "value");
+		return getElementAttribute(driver,CustomerInfoUI.EMAIL_TEXT_BOX, LocatorType.XPATH, "value");
 	}
 
 	public String getValueAtCompanyNameTextBox() {
 		waitForElementVisible(driver, CustomerInfoUI.COMPANY_NAME_TEXT_BOX);
-		return getElementAttribute(driver,CustomerInfoUI.COMPANY_NAME_TEXT_BOX, "value");
+		return getElementAttribute(driver,CustomerInfoUI.COMPANY_NAME_TEXT_BOX, LocatorType.XPATH, "value");
 	}
 }

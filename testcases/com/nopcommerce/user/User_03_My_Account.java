@@ -29,11 +29,10 @@ public class User_03_My_Account extends BaseTest {
 	String firstName, lastName, emailAddress, password;
 	String firstNameNew, lastNameNew, emailAddressNew, passwordNew, companyNameNew, dayNew, monthNew, yearNew;
 	
-	@Parameters("browser")
+	@Parameters({"browser", "url"})
     @BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
-		driver.get("https://demo.nopcommerce.com/");
+	public void beforeClass(String browserName, String url) {
+		driver = getBrowserDriver(browserName, url);
 		
 	 	homePage = PageGeneraterManager.getHomePageObject(driver);
 
@@ -51,53 +50,53 @@ public class User_03_My_Account extends BaseTest {
 		passwordNew = "123456";
 		companyNameNew = "CafeLand";
 		
-		System.out.println("emailAddress: " + emailAddress);
+		log.info("emailAddress: " + emailAddress);
 		
-		System.out.println("Pre-Condition - Step 01: Click to Register link");
+		log.info("Pre-Condition - Step 01: Click to Register link");
 		RegisterPageObject registerPage = homePage.clickToRegisterLink();
 		
-		System.out.println("Pre-Condition - Step 02: Input to required fields");
+		log.info("Pre-Condition - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox(emailAddress);
 		registerPage.inputToPasswordTextBox(password);
 		registerPage.inputToConfirmPasswordTextBox(password);
 		
-		System.out.println("Pre-Condition - Step 03: Click to Register button");
+		log.info("Pre-Condition - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		System.out.println("Pre-Condition - Step 04: Verify message success displayed");
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		log.info("Pre-Condition - Step 04: Verify message success displayed");
+		verifyEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
-		System.out.println("Pre-Condition - Step 05: Click to Logout link");
+		log.info("Pre-Condition - Step 05: Click to Logout link");
 		homePage = registerPage.clickToLogoutLink();
 		
-		System.out.println("Pre-Condition - Step 06: Click to Login link");
+		log.info("Pre-Condition - Step 06: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Pre-Condition - Step 07: Input to required fields");
+		log.info("Pre-Condition - Step 07: Input to required fields");
 		loginPage.inputToEmailTextBox(emailAddress);
 		loginPage.inputToPasswordTextBox(password);
 		
-		System.out.println("Pre-Condition - Step 08: Click to Login button");
+		log.info("Pre-Condition - Step 08: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Pre-Condition - Step 09: Verify My Account Displayed");
-		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
+		log.info("Pre-Condition - Step 09: Verify My Account Displayed");
+		verifyTrue(homePage.isMyAccountLinkDisplayed());
 		
-		System.out.println("Pre-Condition - Step 10: Click to My Account link");
+		log.info("Pre-Condition - Step 10: Click to My Account link");
 		myAccountPage = homePage.clickToMyAccountLink();
 		
-		System.out.println("Pre-Condition - Step 11: Verify My Account displayed");
-		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
+		log.info("Pre-Condition - Step 11: Verify My Account displayed");
+		verifyEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
 	}
 	
 	@Test
 	public void My_Account_01_Update_Info_Customer() {
-		System.out.println("My Account 01 - Step 01: Click to Customer Info link");
+		log.info("My Account 01 - Step 01: Click to Customer Info link");
 		customerInfoPage = (CustomerInfoPageObject) myAccountPage.openPageAtMyAccountByName(driver, "Customer info");
 		
-		System.out.println("My Account 01 - Step 02: Input to required fields");
+		log.info("My Account 01 - Step 02: Input to required fields");
 		customerInfoPage.clickToFemaleRadioButton();
 		
 		customerInfoPage.inputToFirstNameTextBox(firstNameNew);
@@ -110,26 +109,26 @@ public class User_03_My_Account extends BaseTest {
 		customerInfoPage.inputToEmailTextBox(emailAddressNew);
 		customerInfoPage.inputToCompanyNameTextBox(companyNameNew);
 		
-		System.out.println("My Account 01 - Step 03: Click to Save button");
+		log.info("My Account 01 - Step 03: Click to Save button");
 		customerInfoPage.clickToSaveButton();
 		
-		System.out.println("My Account 01 - Step 04: Verify data update");
-		Assert.assertTrue(customerInfoPage.isFemaleRadioButtonSelected());
+		log.info("My Account 01 - Step 04: Verify data update");
+		verifyTrue(customerInfoPage.isFemaleRadioButtonSelected());
 		
-		Assert.assertEquals(customerInfoPage.getValueAtFirstNameTextBox(), firstNameNew);
-		Assert.assertEquals(customerInfoPage.getValueAtLastNameTextBox(), lastNameNew);
+		verifyEquals(customerInfoPage.getValueAtFirstNameTextBox(), firstNameNew);
+		verifyEquals(customerInfoPage.getValueAtLastNameTextBox(), lastNameNew);
 
-		Assert.assertEquals(customerInfoPage.getValueAtDayDropdown(), dayNew);
-		Assert.assertEquals(customerInfoPage.getValueAtMonthDropdown(), monthNew);
-		Assert.assertEquals(customerInfoPage.getValueAtYearDropdown(), yearNew);
+		verifyEquals(customerInfoPage.getValueAtDayDropdown(), dayNew);
+		verifyEquals(customerInfoPage.getValueAtMonthDropdown(), monthNew);
+		verifyEquals(customerInfoPage.getValueAtYearDropdown(), yearNew);
 		
-		Assert.assertEquals(customerInfoPage.getValueAtEmailTextBox(), emailAddressNew);
-		Assert.assertEquals(customerInfoPage.getValueAtCompanyNameTextBox(), companyNameNew);
+		verifyEquals(customerInfoPage.getValueAtEmailTextBox(), emailAddressNew);
+		verifyEquals(customerInfoPage.getValueAtCompanyNameTextBox(), companyNameNew);
 	}
 	
 	@Test
 	public void My_Account_02_Add_Addresses_Customer() {
-		System.out.println("My Account 02 - Step 01: Click to Addresses link");
+		log.info("My Account 02 - Step 01: Click to Addresses link");
 		addressesPage = (AddressesPageObject) customerInfoPage.openPageAtMyAccountByName(driver, "Addresses");
 		
 	}

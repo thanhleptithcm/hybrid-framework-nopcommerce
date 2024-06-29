@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import commons.LocatorType;
 import commons.PageGeneraterManager;
 import pageUIs.RegisterPageUI;
 
@@ -20,27 +21,27 @@ public class RegisterPageObject extends BasePage {
 
 	public String getErrorMessageAtFirstNameTextBox() {
 		waitForElementVisible(driver, RegisterPageUI.FIRST_NAME_ERROR_MESSAGE);
-		return getElementText(driver,RegisterPageUI.FIRST_NAME_ERROR_MESSAGE );
+		return getElementText(driver,RegisterPageUI.FIRST_NAME_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 
 	public String getErrorMessageAtLastNameTextBox() {
 		waitForElementVisible(driver, RegisterPageUI.LAST_NAME_ERROR_MESSAGE);
-		return getElementText(driver,RegisterPageUI.LAST_NAME_ERROR_MESSAGE);
+		return getElementText(driver,RegisterPageUI.LAST_NAME_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 
 	public String getErrorMessageAtEmailTextBox() {
 		waitForElementVisible(driver, RegisterPageUI.EMAIL_ERROR_MESSAGE);
-		return getElementText(driver, RegisterPageUI.EMAIL_ERROR_MESSAGE);
+		return getElementText(driver, RegisterPageUI.EMAIL_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 	
 	public String getErrorMessageAtPasswordTextBox() {
 		waitForElementVisible(driver, RegisterPageUI.PASSWORD_ERROR_MESSAGE);
-		return getElementText(driver, RegisterPageUI.PASSWORD_ERROR_MESSAGE);
+		return getElementText(driver, RegisterPageUI.PASSWORD_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 
 	public String getErrorMessageAtConfirmPasswordTextBox() {
 		waitForElementVisible(driver, RegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
-		return getElementText(driver, RegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
+		return getElementText(driver, RegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 
 	public void inputToFirstNameTextBox(String value) {
@@ -76,11 +77,11 @@ public class RegisterPageObject extends BasePage {
 
 	public String getRegisterSuccessMessage() {
 		waitForElementVisible(driver, RegisterPageUI.REGISTER_SUCCESS_MESSAGE);
-		return getElementText(driver, RegisterPageUI.REGISTER_SUCCESS_MESSAGE);
+		return getElementText(driver, RegisterPageUI.REGISTER_SUCCESS_MESSAGE, LocatorType.XPATH);
 	}
 
 	public String getErrorExistingEmailMessage() {
 		waitForElementVisible(driver, RegisterPageUI.EXISTING_EMAIL_ERROR_MESSAGE);
-		return getElementText(driver, RegisterPageUI.EXISTING_EMAIL_ERROR_MESSAGE);
+		return getElementText(driver, RegisterPageUI.EXISTING_EMAIL_ERROR_MESSAGE, LocatorType.XPATH);
 	}
 }

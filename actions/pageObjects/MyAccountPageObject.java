@@ -3,6 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import commons.LocatorType;
 import pageUIs.MyAccountPageUI;
 
 public class MyAccountPageObject extends BasePage {
@@ -14,7 +15,7 @@ public class MyAccountPageObject extends BasePage {
 
 	public String getTitleHeader() {
 		waitForElementVisible(driver, MyAccountPageUI.TITLE_HEADER_H1);
-		return getElementText(driver, MyAccountPageUI.TITLE_HEADER_H1);
+		return getElementText(driver, MyAccountPageUI.TITLE_HEADER_H1, LocatorType.XPATH);
 	}
 	
 }

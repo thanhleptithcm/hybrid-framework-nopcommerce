@@ -23,13 +23,10 @@ public class User_02_Login extends BaseTest {
 	LoginPageObject loginPage;
 	MyAccountPageObject myAccountPage;
 	
-	@Parameters("browser")
+	@Parameters({"browser", "url"})
     @BeforeClass
-	public void beforeClass(String browserName) {
-		driver = getBrowserDriver(browserName);
-		driver.get("https://demo.nopcommerce.com/");
-		
-		
+	public void beforeClass(String browserName, String url) {
+		driver = getBrowserDriver(browserName, url);
 		homePage = PageGeneraterManager.getHomePageObject(driver);
 
 		firstName = "Le";
@@ -37,121 +34,121 @@ public class User_02_Login extends BaseTest {
 		emailAddress = "afc" + getRandomNumber() + "@mail.vn";
 		password = "123456";
 		
-		System.out.println("Pre-Condition - Step 01: Click to Register link");
+		log.info("Pre-Condition - Step 01: Click to Register link");
 		RegisterPageObject registerPage = homePage.clickToRegisterLink();
 		
-		System.out.println("Pre-Condition - Step 02: Input to required fields");
+		log.info("Pre-Condition - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox(emailAddress);
 		registerPage.inputToPasswordTextBox(password);
 		registerPage.inputToConfirmPasswordTextBox(password);
 		
-		System.out.println("Pre-Condition - Step 03: Click to Register button");
+		log.info("Pre-Condition - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		System.out.println("Pre-Condition - Step 04: Verify message success displayed");
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		log.info("Pre-Condition - Step 04: Verify message success displayed");
+		verifyEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
-		System.out.println("Pre-Condition - Step 05: Click to Logout link");
+		log.info("Pre-Condition - Step 05: Click to Logout link");
 		homePage = registerPage.clickToLogoutLink();
 	}
 	
 	@Test
 	public void Login_01_Empty_Data() {
-		System.out.println("Login 01 - Step 01: Click to Login link");
+		log.info("Login 01 - Step 01: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Login 01 - Step 02: Click to Login button");
+		log.info("Login 01 - Step 02: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login 01 - Step 03: Verify error message displayed");
-		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextBox(), "Please enter your email");
+		log.info("Login 01 - Step 03: Verify error message displayed");
+		verifyEquals(loginPage.getErrorMessageAtEmailTextBox(), "Please enter your email");
 	}
 
 	@Test
 	public void Login_02_Invalid_Email() {
-		System.out.println("Login 02 - Step 01: Click to Login link");
+		log.info("Login 02 - Step 01: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Login 02 - Step 02: Input to required fields");
+		log.info("Login 02 - Step 02: Input to required fields");
 		loginPage.inputToEmailTextBox("123@123@123");
 		
-		System.out.println("Login 02 - Step 03: Click to Login button");
+		log.info("Login 02 - Step 03: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login 02 - Step 04: Verify error message displayed");
-		Assert.assertEquals(loginPage.getErrorMessageAtEmailTextBox(), "Please enter a valid email address.");
+		log.info("Login 02 - Step 04: Verify error message displayed");
+		verifyEquals(loginPage.getErrorMessageAtEmailTextBox(), "Please enter a valid email address.");
 	}
 	
 	@Test
 	public void Login_03_Email_Not_Found() {
-		System.out.println("Login 03 - Step 01: Click to Login link");
+		log.info("Login 03 - Step 01: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Login 03 - Step 02: Input to required fields");
+		log.info("Login 03 - Step 02: Input to required fields");
 		loginPage.inputToEmailTextBox("test99@gmail.com");
 		loginPage.inputToPasswordTextBox("123456");
 		
-		System.out.println("Login 03 - Step 03: Click to Login button");
+		log.info("Login 03 - Step 03: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login 03 - Step 04: Verify error message displayed");
-		Assert.assertEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
+		log.info("Login 03 - Step 04: Verify error message displayed");
+		verifyEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
 	}
 
 	@Test
 	public void Login_04_Existing_Email_Password_Empty() {
-		System.out.println("Login 04 - Step 01: Click to Login link");
+		log.info("Login 04 - Step 01: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Login 04 - Step 02: Input to required fields");
+		log.info("Login 04 - Step 02: Input to required fields");
 		loginPage.inputToEmailTextBox(emailAddress);
 		loginPage.inputToPasswordTextBox("");
 		
-		System.out.println("Login 04 - Step 03: Click to Login button");
+		log.info("Login 04 - Step 03: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login 04 - Step 04: Verify error message displayed");
-		Assert.assertEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+		log.info("Login 04 - Step 04: Verify error message displayed");
+		verifyEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 	
 	@Test
 	public void Login_05_Existing_Email_Incorrect_Password() {
-		System.out.println("Login 05 - Step 01: Click to Login link");
+		log.info("Login 05 - Step 01: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Login 05 - Step 02: Input to required fields");
+		log.info("Login 05 - Step 02: Input to required fields");
 		loginPage.inputToEmailTextBox(emailAddress);
 		loginPage.inputToPasswordTextBox("456123");
 		
-		System.out.println("Login 05 - Step 03: Click to Login button");
+		log.info("Login 05 - Step 03: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login 05 - Step 04: Verify error message displayed");
-		Assert.assertEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
+		log.info("Login 05 - Step 04: Verify error message displayed");
+		verifyEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 	}
 
 	@Test
 	public void Login_06_Valid_Email_Password() {
-		System.out.println("Login 06 - Step 01: Click to Login link");
+		log.info("Login 06 - Step 01: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		System.out.println("Login 06 - Step 02: Input to required fields");
+		log.info("Login 06 - Step 02: Input to required fields");
 		loginPage.inputToEmailTextBox(emailAddress);
 		loginPage.inputToPasswordTextBox(password);
 		
-		System.out.println("Login 06 - Step 03: Click to Login button");
+		log.info("Login 06 - Step 03: Click to Login button");
 		loginPage.clickToLoginButton();
 		
-		System.out.println("Login 06 - Step 04: Verify My Account Displayed");
+		log.info("Login 06 - Step 04: Verify My Account Displayed");
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 		
-		System.out.println("Login 06 - Step 05: Click to My Account link");
+		log.info("Login 06 - Step 05: Click to My Account link");
 		myAccountPage = homePage.clickToMyAccountLink();
 		
-		System.out.println("Login 05 - Step 04: Verify My Account displayed");
-		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
+		log.info("Login 05 - Step 04: Verify My Account displayed");
+		verifyEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
 	}
 	
 	@AfterClass

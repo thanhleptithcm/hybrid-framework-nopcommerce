@@ -3,7 +3,7 @@ package commons;
 import java.io.File;
 
 public class GlobalConstants {
-	public static final String NORMAL_URL = "https://demo.guru99.com/v4/";
+	public static final String NORMAL_URL = "https://demo.nopcommerce.com";
 
 	public static long LONG_TIMEOUT = 30;
 	public static long SHORT_TIMEOUT = 10;
