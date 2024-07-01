@@ -19,4 +19,6 @@ public class GlobalConstants {
 	public static  String DRAG_DROP_HTML5 = PROJECT_PATH + File.separator + "dragDropHTML5";
 	public static  String AUTO_IT_SCRIPT = PROJECT_PATH + File.separator + "autoIT";
 	public static  String REPORTNG_SCREENSHOT = PROJECT_PATH + File.separator + "reportNGImages"+ File.separator;
+
+	public static  String EXTENT_REPORT_V5 = PROJECT_PATH + File.separator + "extentV5"+ File.separator;
 }

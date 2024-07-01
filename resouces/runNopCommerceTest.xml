@@ -5,9 +5,15 @@
 	<listeners>
 		<listener class-name="commons.MethodListener"/>
 		
-		<!-- Report của thư viện libsReportNG xem file ở /test-output/html/index.html-->
+		<!--Report Extent V5-->
+		<listener class-name="reportConfig.ExtentTestListener"/>
+		
+		<!-- Report đính kèm hình ảnh
+		<listener class-name="reportConfig.ReportNGListener" />
+		
+		Report của thư viện libsReportNG xem file ở /test-output/html/index.html
 		<listener class-name="org.uncommons.reportng.HTMLReporter" />
-		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />-->
 	</listeners>
 	
 	<parameter name="url" value="https://demo.nopcommerce.com/" />

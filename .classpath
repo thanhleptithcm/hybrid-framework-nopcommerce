@@ -5,7 +5,7 @@
 	<classpathentry kind="src" path="actions"/>
 	<classpathentry kind="src" path="interfaces"/>
 	<classpathentry kind="src" path="resouces"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="libWebDriverManager/bcprov-jdk18on-1.76.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/bcutil-jdk18on-1.76.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/commons-compress-1.24.0.jar"/>
-	<classpathentry kind="lib" path="libWebDriverManager/commons-io-2.13.0.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/commons-lang3-3.13.0.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/dec-0.1.2.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/docker-java-3.3.4.jar"/>
@@ -34,16 +33,13 @@
 	<classpathentry kind="lib" path="libWebDriverManager/jackson-databind-2.10.3.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/jna-5.13.0.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/webdrivermanager-5.6.2.jar"/>
-	<classpathentry kind="lib" path="libsLog4J/commons-codec-1.11.jar"/>
-	<classpathentry kind="lib" path="libsLog4J/commons-io-2.6.jar"/>
-	<classpathentry kind="lib" path="libsLog4J/commons-lang3-3.8.1.jar"/>
-	<classpathentry kind="lib" path="libsLog4J/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="libsLog4J/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="libWebDriverManager/slf4j-api-2.0.9.jar"/>
-	<classpathentry kind="lib" path="libsReportNG/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="libsReportNG/guice-3.0.jar"/>
-	<classpathentry kind="lib" path="libsReportNG/reportng-1.1.4.jar"/>
-	<classpathentry kind="lib" path="libsReportNG/reportng-1.1.4-sources.jar"/>
-	<classpathentry kind="lib" path="libsReportNG/velocity-1.4.jar"/>
+	<classpathentry kind="lib" path="libExtentV5/extentreports-5.0.8.jar"/>
+	<classpathentry kind="lib" path="libExtentV5/freemarker-2.3.30.jar"/>
+	<classpathentry kind="lib" path="libExtentV5/lombok-1.18.12.jar"/>
+	<classpathentry kind="lib" path="libExtentV5/reactive-streams-1.0.3.jar"/>
+	<classpathentry kind="lib" path="libExtentV5/rxjava-3.0.4.jar"/>
+	<classpathentry kind="lib" path="libWebDriverManager/commons-io-2.13.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

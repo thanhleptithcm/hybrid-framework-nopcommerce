@@ -10,21 +10,16 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import reportConfig.ExtentTestManager;
+
 import java.io.IOException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.opera.OperaDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
-
+import com.aventstack.extentreports.Status;
 public class BaseTest {
 	private WebDriver driver;
-	protected final Log log;
-	
-	protected BaseTest() {
-		log = LogFactory.getLog(getClass());
-	}
-	
+
 	public WebDriver getDriverInstance() {
 		return this.driver;
 	}
@@ -87,9 +82,9 @@ public class BaseTest {
 		try {
 			Assert.assertTrue(condition);
 			if (condition == true) {
-				log.info(" -------------------------- PASSED -------------------------- ");
+				ExtentTestManager.getTest().log(Status.INFO," -------------------------- PASSED -------------------------- ");
 			} else {
-				log.info(" -------------------------- FAILED -------------------------- ");
+				ExtentTestManager.getTest().log(Status.INFO," -------------------------- FAILED -------------------------- ");
 			}
 		} catch (Throwable e) {
 			pass = false;
@@ -109,9 +104,9 @@ public class BaseTest {
 		boolean pass = true;
 		try {
 			if (condition == false) {
-				log.info(" -------------------------- PASSED -------------------------- ");
+				ExtentTestManager.getTest().log(Status.INFO," -------------------------- PASSED -------------------------- ");
 			} else {
-				log.info(" -------------------------- FAILED -------------------------- ");
+				ExtentTestManager.getTest().log(Status.INFO," -------------------------- FAILED -------------------------- ");
 			}
 			Assert.assertFalse(condition);
 		} catch (Throwable e) {
@@ -130,10 +125,10 @@ public class BaseTest {
 		boolean pass = true;
 		try {
 			Assert.assertEquals(actual, expected);
-			log.info(" -------------------------- PASSED -------------------------- ");
+			ExtentTestManager.getTest().log(Status.INFO," -------------------------- PASSED -------------------------- ");
 		} catch (Throwable e) {
 			pass = false;
-			log.info(" -------------------------- FAILED -------------------------- ");
+			ExtentTestManager.getTest().log(Status.INFO," -------------------------- FAILED -------------------------- ");
 			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
 			Reporter.getCurrentTestResult().setThrowable(e);
 		}
@@ -148,10 +143,10 @@ public class BaseTest {
 		String cmd = "";
 		try {
 			String osName = System.getProperty("os.name").toLowerCase();
-			log.info("OS name = " + osName);
+			ExtentTestManager.getTest().log(Status.INFO,"OS name = " + osName);
 
 			String driverInstanceName = driver.toString().toLowerCase();
-			log.info("Driver instance name = " + driverInstanceName);
+			ExtentTestManager.getTest().log(Status.INFO,"Driver instance name = " + driverInstanceName);
 
 			if (driverInstanceName.contains("chrome")) {
 				if (osName.contains("window")) {
@@ -192,7 +187,7 @@ public class BaseTest {
 				driver.quit();
 			}
 		} catch (Exception e) {
-			log.info(e.getMessage());
+			ExtentTestManager.getTest().log(Status.INFO,e.getMessage());
 		} finally {
 			try {
 				Process process = Runtime.getRuntime().exec(cmd);

@@ -1,6 +1,7 @@
 package com.nopcommerce.user;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -10,6 +11,9 @@ import commons.BaseTest;
 import commons.PageGeneraterManager;
 import pageObjects.HomePageObject;
 import pageObjects.RegisterPageObject;
+import reportConfig.ExtentTestManager;
+import java.lang.reflect.Method;
+import com.aventstack.extentreports.Status;
 
 public class User_01_Register extends BaseTest {
 	WebDriver driver;
@@ -32,119 +36,125 @@ public class User_01_Register extends BaseTest {
 	}
 
 	@Test
-	public void TC_01_Register_Empty_Data() {
-		log.info("Register 01 - Step 01: Click to Register link");
+	public void TC_01_Register_Empty_Data(Method method) {
+		ExtentTestManager.startTest(method.getName(), "TC_01_Register_Empty_Data");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 01 - Step 01: Click to Register link");
 		registerPage = homePage.clickToRegisterLink();
 
-		log.info("Register 01 - Step 02: Click to Register button");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 01 - Step 02: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		log.info("Register 01 - Step 03: Verify error message displayed");
-		verifyEquals(registerPage.getErrorMessageAtFirstNameTextBox(), "First name is required.");
-		verifyEquals(registerPage.getErrorMessageAtLastNameTextBox(), "Last name is required.");
-		verifyEquals(registerPage.getErrorMessageAtEmailTextBox(), "Email is required.");
-		verifyEquals(registerPage.getErrorMessageAtConfirmPasswordTextBox(), "Password is required.");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 01 - Step 03: Verify error message displayed");
+		Assert.assertEquals(registerPage.getErrorMessageAtFirstNameTextBox(), "First name is required.");
+		Assert.assertEquals(registerPage.getErrorMessageAtLastNameTextBox(), "Last name is required.");
+		Assert.assertEquals(registerPage.getErrorMessageAtEmailTextBox(), "Email is required.");
+		Assert.assertEquals(registerPage.getErrorMessageAtConfirmPasswordTextBox(), "Password is required.");
 	}
 	
 	@Test 
-	public void TC_02_Register_Invalid_Email() {
-		log.info("Register 02 - Step 01: Click to Register link");
+	public void TC_02_Register_Invalid_Email(Method method) {
+		ExtentTestManager.startTest(method.getName(), "TC_02_Register_Invalid_Email");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Step 01: Click to Register link");
 		registerPage = homePage.clickToRegisterLink();
 		
-		log.info("Register 02 - Step 02: Input to required fields");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox("123@123@123");
 		registerPage.inputToPasswordTextBox(password);
 		registerPage.inputToConfirmPasswordTextBox(password);
 		
-		log.info("Register 02 - Step 03: Click to Register button");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		log.info("Register 02 - Step 04: Verify error message displayed");
-		verifyEquals(registerPage.getErrorMessageAtEmailTextBox(), "Please enter a valid email address.");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 02 - Step 04: Verify error message displayed");
+		Assert.assertEquals(registerPage.getErrorMessageAtEmailTextBox(), "Please enter a valid email address.");
 	}
 	
 	@Test
-	public void TC_03_Register_Success() {
-		log.info("Register 03 - Step 01: Click to Register link");
+	public void TC_03_Register_Success(Method method) {
+		ExtentTestManager.startTest(method.getName(), "TC_03_Register_Success");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Step 01: Click to Register link");
 		registerPage = homePage.clickToRegisterLink();
 		
-		log.info("Register 03 - Step 02: Input to required fields");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox(emailAddress);
 		registerPage.inputToPasswordTextBox(password);
 		registerPage.inputToConfirmPasswordTextBox(password);
 		
-		log.info("Register 03 - Step 03: Click to Register button");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		log.info("Register 03 - Step 04: Verify message success displayed");
-		verifyEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Step 04: Verify message success displayed");
+		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
-		log.info("Register 03 - Step 05: Click to Logout link");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Step 05: Click to Logout link");
 		registerPage.clickToLogoutLink();
 	}
 	
 
 	@Test
-	public void TC_04_Register_Existing_Email() {
-		log.info("Register 04 - Step 01: Click to Register link");
+	public void TC_04_Register_Existing_Email(Method method) {
+		ExtentTestManager.startTest(method.getName(), "TC_04_Register_Existing_Email");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Step 01: Click to Register link");
 		registerPage = homePage.clickToRegisterLink();
 		
-		log.info("Register 04 - Step 02: Input to required fields");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox(emailAddress);
 		registerPage.inputToPasswordTextBox(password);
 		registerPage.inputToConfirmPasswordTextBox(password);
 			
-		log.info("Register 04 - Step 03: Click to Register button");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		log.info("Register 04 - Step 04: Verify error existing email message displayed");
-		verifyEquals(registerPage.getErrorExistingEmailMessage(), "The specified email already exists");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 04 - Step 04: Verify error existing email message displayed");
+		Assert.assertEquals(registerPage.getErrorExistingEmailMessage(), "The specified email already exists");
 	}
 	
 
 	@Test
-	public void TC_05_Register_Password_Less_Than_6_Char() {
-		log.info("Register 05 - Step 01: Click to Register link");
+	public void TC_05_Register_Password_Less_Than_6_Char(Method method) {
+		ExtentTestManager.startTest(method.getName(), "TC_05_Register_Password_Less_Than_6_Char");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Step 01: Click to Register link");
 		registerPage = homePage.clickToRegisterLink();
 		
-		log.info("Register 05 - Step 02: Input to required fields");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox(emailAddress);
 		registerPage.inputToPasswordTextBox("123");
 		registerPage.inputToConfirmPasswordTextBox("123");
 		
-		log.info("Register 05 - Step 03: Click to Register button");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		log.info("Register 05 - Step 04: Verify error message displayed");
-		verifyEquals(registerPage.getErrorMessageAtPasswordTextBox(), "<p>Password must meet the following rules: </p><ul><li>must have at least 6 characters and not greater than 64 characters</li></ul>");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 05 - Step 04: Verify error message displayed");
+		Assert.assertEquals(registerPage.getErrorMessageAtPasswordTextBox(), "<p>Password must meet the following rules: </p><ul><li>must have at least 6 characters and not greater than 64 characters</li></ul>");
 	}
 	
 
 	@Test
-	public void TC_06_Register_Invalid_Confirm_Password() {
-		log.info("Register 06 - Step 01: Click to Register link");
+	public void TC_06_Register_Invalid_Confirm_Password(Method method) {
+		ExtentTestManager.startTest(method.getName(), "TC_06_Register_Invalid_Confirm_Password");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Step 01: Click to Register link");
 		registerPage = homePage.clickToRegisterLink();
 		
-		log.info("Register 06 - Step 02: Input to required fields");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Step 02: Input to required fields");
 		registerPage.inputToFirstNameTextBox(firstName);
 		registerPage.inputToLastNameTextBox(lastName);
 		registerPage.inputToEmailTextBox(emailAddress);
 		registerPage.inputToPasswordTextBox("123456");
 		registerPage.inputToConfirmPasswordTextBox("123654");
 		
-		log.info("Register 06 - Step 03: Click to Register button");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Step 03: Click to Register button");
 		registerPage.clickToRegisterButton();
 		
-		log.info("Register 06 - Step 04: Verify error message displayed");
-		verifyEquals(registerPage.getErrorMessageAtConfirmPasswordTextBox(), "The password and confirmation password do not match.");
+		ExtentTestManager.getTest().log(Status.INFO, "Register 06 - Step 04: Verify error message displayed");
+		Assert.assertEquals(registerPage.getErrorMessageAtConfirmPasswordTextBox(), "The password and confirmation password do not match.");
 	}
 
 	@AfterClass
