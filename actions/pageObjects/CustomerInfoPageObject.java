@@ -91,7 +91,7 @@ public class CustomerInfoPageObject extends BasePage {
 
 	public String getValueAtEmailTextBox() {
 		waitForElementVisible(driver, CustomerInfoUI.EMAIL_TEXT_BOX);
-		return getElementAttribute(driver,CustomerInfoUI.EMAIL_TEXT_BOX, LocatorType.XPATH, "value");
+		return getElementAttribute(driver, CustomerInfoUI.EMAIL_TEXT_BOX, LocatorType.XPATH, "value");
 	}
 
 	public String getValueAtCompanyNameTextBox() {

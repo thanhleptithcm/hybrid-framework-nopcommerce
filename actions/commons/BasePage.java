@@ -18,7 +18,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.github.dockerjava.api.model.Driver;
+
+import pageObjects.HomePageObject;
 import pageUIs.BasePageUI;
+import pageUIs.CustomerInfoUI;
 
 public class BasePage {
 
@@ -487,6 +491,26 @@ public class BasePage {
 		waitForElementVisible(driver, BasePageUI.DYNAMIC_TEXTBOX_BY_ID, textboxID);
 		return getElementAttribute(driver, BasePageUI.DYNAMIC_TEXTBOX_BY_ID, "value", textboxID);
 	}
+	
+	public void selectToDropdownById(WebDriver driver, String dropdownAttributeName, String itemValue) {
+		System.out.println("dropdownAttributeName: " + dropdownAttributeName);
+		System.out.println("itemValue: " + itemValue);
+		waitForElementClickable(driver, BasePageUI.DYNAMIC_DROPDOWN_BY_ID, dropdownAttributeName);
+		
+		selectItemInDefaultDropdownByXpath(driver, itemValue, BasePageUI.DYNAMIC_DROPDOWN_BY_ID, dropdownAttributeName);
+	}
+	
+	public String getValueAtAddressesByClass(WebDriver driver, String valueClass) {
+		waitForElementVisible(driver, BasePageUI.DYNAMIC_VALUE_ADDRESSES_BY_CLASS, valueClass);
+		return getElementTextByXpath(driver, getDynamicLocatorXpath(BasePageUI.DYNAMIC_VALUE_ADDRESSES_BY_CLASS, valueClass) );
+	}
+	
+	public HomePageObject clickToLogoutLink(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.LOGOUT_LINK);
+		clickToElement(driver,  BasePageUI.LOGOUT_LINK);
+		sleepInsecond(2);
+		return PageGeneraterManager.getHomePageObject(driver);
+	}
 
 	public void uploadMultipleFiles(WebDriver driver, String... fileNames) {
 		String fullFileName = "";
@@ -513,6 +537,8 @@ public class BasePage {
 				return PageGeneraterManager.getCustomerInfoPageObject(driver);
 			case "Addresses":
 				return PageGeneraterManager.getAddressesPageObject(driver);
+			case "Change password":
+				return PageGeneraterManager.getChangePasswordPageObject(driver);
 			default:
 				throw new RuntimeException("Invalid page name at My Account area");
 		}

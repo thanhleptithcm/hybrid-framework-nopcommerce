@@ -16,11 +16,12 @@ import java.lang.reflect.Method;
 import com.aventstack.extentreports.Status;
 
 public class User_01_Register extends BaseTest {
-	WebDriver driver;
-	String firstName, lastName, emailAddress, password;
+	private WebDriver driver;
+	private String firstName, lastName;
+	public static String emailAddress, password;
 	
-	HomePageObject homePage;
-	RegisterPageObject registerPage;
+	private HomePageObject homePage;
+	private RegisterPageObject registerPage;
 	
 	
 	@Parameters({"browser", "url"})
@@ -91,9 +92,8 @@ public class User_01_Register extends BaseTest {
 		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
 
 		ExtentTestManager.getTest().log(Status.INFO, "Register 03 - Step 05: Click to Logout link");
-		registerPage.clickToLogoutLink();
+		registerPage.clickToLogoutLink(driver);
 	}
-	
 
 	@Test
 	public void TC_04_Register_Existing_Email(Method method) {
@@ -157,9 +157,9 @@ public class User_01_Register extends BaseTest {
 		Assert.assertEquals(registerPage.getErrorMessageAtConfirmPasswordTextBox(), "The password and confirmation password do not match.");
 	}
 
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driver.quit();
+		closeBrowserAndDriver();
 	}
 
 }

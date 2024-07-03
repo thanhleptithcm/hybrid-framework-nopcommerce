@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import commons.BasePage;
 import commons.PageGeneraterManager;
 import pageUIs.HomePageUI;
-import pageUIs.LoginPageUI;
 
 public class HomePageObject extends BasePage {
 	private WebDriver driver;

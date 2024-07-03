@@ -12,50 +12,22 @@ import commons.PageGeneraterManager;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.MyAccountPageObject;
-import pageObjects.RegisterPageObject;
 import reportConfig.ExtentTestManager;
 import java.lang.reflect.Method;
 import com.aventstack.extentreports.Status;
 
 public class User_02_Login extends BaseTest {
-	WebDriver driver;
+	private WebDriver driver;
 	
-	String firstName, lastName, emailAddress, password;
-	
-	HomePageObject homePage;
-	LoginPageObject loginPage;
-	MyAccountPageObject myAccountPage;
+	private HomePageObject homePage;
+	private LoginPageObject loginPage;
+	private MyAccountPageObject myAccountPage;
 	
 	@Parameters({"browser", "url"})
     @BeforeClass
 	public void beforeClass(String browserName, String url) {
 		driver = getBrowserDriver(browserName, url);
 		homePage = PageGeneraterManager.getHomePageObject(driver);
-
-		firstName = "Le";
-		lastName = "Thanh";
-		emailAddress = "afc" + getRandomNumber() + "@mail.vn";
-		password = "123456";
-		
-		ExtentTestManager.startTest("Pre-Condition", "Pre-Condition Register An Account");
-		ExtentTestManager.getTest().log(Status.INFO, "Pre-Condition - Step 01: Click to Register link");
-		RegisterPageObject registerPage = homePage.clickToRegisterLink();
-		
-		ExtentTestManager.getTest().log(Status.INFO, "Pre-Condition - Step 02: Input to required fields");
-		registerPage.inputToFirstNameTextBox(firstName);
-		registerPage.inputToLastNameTextBox(lastName);
-		registerPage.inputToEmailTextBox(emailAddress);
-		registerPage.inputToPasswordTextBox(password);
-		registerPage.inputToConfirmPasswordTextBox(password);
-		
-		ExtentTestManager.getTest().log(Status.INFO, "Pre-Condition - Step 03: Click to Register button");
-		registerPage.clickToRegisterButton();
-		
-		ExtentTestManager.getTest().log(Status.INFO, "Pre-Condition - Step 04: Verify message success displayed");
-		Assert.assertEquals(registerPage.getRegisterSuccessMessage(), "Your registration completed");
-
-		ExtentTestManager.getTest().log(Status.INFO, "Pre-Condition - Step 05: Click to Logout link");
-		homePage = registerPage.clickToLogoutLink();
 	}
 	
 	@Test
@@ -111,7 +83,7 @@ public class User_02_Login extends BaseTest {
 		loginPage = homePage.clickToLoginLink();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 04 - Step 02: Input to required fields");
-		loginPage.inputToEmailTextBox(emailAddress);
+		loginPage.inputToEmailTextBox(User_01_Register.emailAddress);
 		loginPage.inputToPasswordTextBox("");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 04 - Step 03: Click to Login button");
@@ -128,7 +100,7 @@ public class User_02_Login extends BaseTest {
 		loginPage = homePage.clickToLoginLink();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 05 - Step 02: Input to required fields");
-		loginPage.inputToEmailTextBox(emailAddress);
+		loginPage.inputToEmailTextBox(User_01_Register.emailAddress);
 		loginPage.inputToPasswordTextBox("456123");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 05 - Step 03: Click to Login button");
@@ -145,11 +117,12 @@ public class User_02_Login extends BaseTest {
 		loginPage = homePage.clickToLoginLink();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 06 - Step 02: Input to required fields");
-		loginPage.inputToEmailTextBox(emailAddress);
-		loginPage.inputToPasswordTextBox(password);
+		loginPage.inputToEmailTextBox(User_01_Register.emailAddress);
+		loginPage.inputToPasswordTextBox(User_01_Register.password);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 06 - Step 03: Click to Login button");
 		loginPage.clickToLoginButton();
+		homePage = PageGeneraterManager.getHomePageObject(driver);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 06 - Step 04: Verify My Account Displayed");
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
@@ -161,8 +134,8 @@ public class User_02_Login extends BaseTest {
 		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
 	}
 	
-	@AfterClass
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-		driver.quit();
+		closeBrowserAndDriver();
 	}
 }
