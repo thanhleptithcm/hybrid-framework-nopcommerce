@@ -15,6 +15,7 @@ import pageObjects.CustomerInfoPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.MyAccountPageObject;
+import pageObjects.ProductPageObject;
 import reportConfig.ExtentTestManager;
 import java.lang.reflect.Method;
 import com.aventstack.extentreports.Status;
@@ -29,8 +30,9 @@ public class User_03_My_Account extends BaseTest {
 	private CustomerInfoPageObject customerInfoPage;
 	private AddressesPageObject addressesPage;
 	private ChangePasswordPageObject changePasswordPage;
+	private ProductPageObject productPage;
 	
-	private String firstName, lastName, fullName, companyName, day, month, year;
+	private String firstName, lastName, fullName, companyName, day, month, year, emailAddress, password;
 	private String city, address1, address2, postalCode, phoneNumber, faxNumber, country, passwordNew;
 	
 	@Parameters({"browser", "url"})
@@ -48,6 +50,9 @@ public class User_03_My_Account extends BaseTest {
 		year = "1996";
 		companyName = "CafeLand";
 		
+		emailAddress = Common_01_User_Register.emailAddress;
+		password = Common_01_User_Register.password;
+		
 		city = "Ho Chi Minh";
 		address1 = "123 Le Hong Phong";
 		address2 = "456 Nguyen Van Troi";
@@ -58,9 +63,15 @@ public class User_03_My_Account extends BaseTest {
 		
 		passwordNew = "111111";
 	 	
-	 	homePage.setCookies(driver, Common_01_User_Register.loggedCookies);
-	 	homePage.refreshCurrentPage(driver);
-	 	
+//	 	homePage.setCookies(driver, Common_01_User_Register.loggedCookies);
+//	 	homePage.refreshCurrentPage(driver);
+		System.out.println("emailAddress: " + emailAddress);
+		System.out.println("password: " + password);
+		
+		loginPage = homePage.clickToLoginLink();
+		loginPage.inputToEmailTextBox(emailAddress);
+		loginPage.inputToPasswordTextBox(password);
+		loginPage.clickToLoginButton();
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 		myAccountPage = homePage.clickToMyAccountLink();
 		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
@@ -82,7 +93,7 @@ public class User_03_My_Account extends BaseTest {
 		customerInfoPage.chooseMonthDropdown(month);
 		customerInfoPage.chooseYearDropdown(year);
 		
-		customerInfoPage.inputToTextboxByID(driver, "Email", Common_01_User_Register.emailAddress);
+		customerInfoPage.inputToTextboxByID(driver, "Email", emailAddress);
 		customerInfoPage.inputToTextboxByID(driver, "Company", companyName);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 01 - Step 03: Click to Save button");
@@ -98,7 +109,7 @@ public class User_03_My_Account extends BaseTest {
 		Assert.assertEquals(customerInfoPage.getValueAtMonthDropdown(), month);
 		Assert.assertEquals(customerInfoPage.getValueAtYearDropdown(), year);
 		
-		Assert.assertEquals(customerInfoPage.getValueAtEmailTextBox(), Common_01_User_Register.emailAddress);
+		Assert.assertEquals(customerInfoPage.getValueAtEmailTextBox(), emailAddress);
 		Assert.assertEquals(customerInfoPage.getValueAtCompanyNameTextBox(), companyName);
 	}
 	
@@ -114,7 +125,7 @@ public class User_03_My_Account extends BaseTest {
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 02 - Step 03: Input to required fields");
 		addressesPage.inputToTextboxByID(driver, "Address_FirstName", firstName);
 		addressesPage.inputToTextboxByID(driver, "Address_LastName", lastName);
-		addressesPage.inputToTextboxByID(driver, "Address_Email", Common_01_User_Register.emailAddress);
+		addressesPage.inputToTextboxByID(driver, "Address_Email", emailAddress);
 		addressesPage.inputToTextboxByID(driver, "Address_Company", companyName);
 		addressesPage.selectToDropdownById(driver, "Address_CountryId", country);
 		addressesPage.inputToTextboxByID(driver, "Address_City", city);
@@ -130,7 +141,7 @@ public class User_03_My_Account extends BaseTest {
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 02 - Step 05: Verify data update");
 		Assert.assertEquals(addressesPage.getValueTitleAtAddresses(), fullName);
 		Assert.assertEquals(addressesPage.getValueAtAddressesByClass(driver, "name"), fullName);
-		Assert.assertEquals(addressesPage.getValueAtAddressesByClass(driver, "email"), "Email: " + Common_01_User_Register.emailAddress);
+		Assert.assertEquals(addressesPage.getValueAtAddressesByClass(driver, "email"), "Email: " + emailAddress);
 		Assert.assertEquals(addressesPage.getValueAtAddressesByClass(driver, "company"), companyName);
 		Assert.assertEquals(addressesPage.getValueAtAddressesByClass(driver, "country"), country);
 		Assert.assertEquals(addressesPage.getValueAtAddressesByClass(driver, "city"), city);
@@ -148,7 +159,7 @@ public class User_03_My_Account extends BaseTest {
 		changePasswordPage = (ChangePasswordPageObject) customerInfoPage.openPageAtMyAccountByName(driver, "Change password");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 02: Input to required fields");
-		changePasswordPage.inputToTextboxByID(driver, "OldPassword", Common_01_User_Register.password);
+		changePasswordPage.inputToTextboxByID(driver, "OldPassword", password);
 		changePasswordPage.inputToTextboxByID(driver, "NewPassword", passwordNew);
 		changePasswordPage.inputToTextboxByID(driver, "ConfirmNewPassword", passwordNew);
 		
@@ -167,20 +178,20 @@ public class User_03_My_Account extends BaseTest {
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 07: Click to Login link");
 		loginPage = homePage.clickToLoginLink();
 		
-		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 08: Input to Email: " + Common_01_User_Register.emailAddress);
-		loginPage.inputToEmailTextBox(Common_01_User_Register.emailAddress);
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 08: Input to Email: " + emailAddress);
+		loginPage.inputToEmailTextBox(emailAddress);
 		
-		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 09: Input to Password Old: " + Common_01_User_Register.password);
-		loginPage.inputToPasswordTextBox(Common_01_User_Register.password);
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 09: Input to Password Old: " + password);
+		loginPage.inputToPasswordTextBox(password);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 10: Click to Login button");
 		loginPage.clickToLoginButton();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 11: Verify error message login failed");
-		Assert.assertEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nNo customer account found");
+		Assert.assertEquals(loginPage.getErrorMessageLoginUnsuccessful(), "Login was unsuccessful. Please correct the errors and try again.\nThe credentials provided are incorrect");
 		
-		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 12: Input to Email: " + Common_01_User_Register.emailAddress);
-		loginPage.inputToEmailTextBox(Common_01_User_Register.emailAddress);
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 12: Input to Email: " + emailAddress);
+		loginPage.inputToEmailTextBox(emailAddress);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 13: Input to Password New: " + passwordNew);
 		loginPage.inputToPasswordTextBox(passwordNew);
@@ -191,6 +202,24 @@ public class User_03_My_Account extends BaseTest {
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 15: Verify My Account Displayed");
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
+	}
+	
+	@Test
+	public void My_Account_04_Add_Review_Product(Method method) {
+		ExtentTestManager.startTest(method.getName(), "My_Account_04_Add_Review_Product");
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 01: Click to item product");
+		productPage = homePage.clickToItemProduct("Build your own computer");
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 02: Click to add review button");
+		productPage.clickToAddReview();
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 03: Input to required fields");
+		productPage.inputToTextboxByID(driver, "AddProductReview_Title", "Review Product");
+		productPage.inputToReviewTextArea("Review Product");
+		productPage.chooseRatingByRadio();
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 03: Click to Submit Review button");
+		productPage.clickToButtonByText(driver, "Submit review");
 	}
 
 	@AfterClass

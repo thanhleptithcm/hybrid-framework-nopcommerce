@@ -1,8 +1,5 @@
 package com.nopcommerce.common;
 
-import java.util.Set;
-
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -23,7 +20,7 @@ public class Common_01_User_Register extends BaseTest {
 	private RegisterPageObject registerPage;
 	private LoginPageObject loginPage;
 	
-	public static Set<Cookie> loggedCookies;
+//	public static Set<Cookie> loggedCookies;
 	
 	@Parameters({"browser", "url"})
     @BeforeTest
@@ -56,7 +53,7 @@ public class Common_01_User_Register extends BaseTest {
 		
 		loginPage.clickToLoginButton();
 		
-		loggedCookies = loginPage.getAllCookies(driver);
+//		loggedCookies = loginPage.getAllCookies(driver);
 	}
 
 	@AfterTest(alwaysRun = true)

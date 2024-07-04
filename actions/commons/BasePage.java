@@ -356,6 +356,11 @@ public class BasePage {
 	public void scrollToElement(WebDriver driver, String locator, LocatorType type) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locator, type));
 	}
+	
+
+	public void scrollToElement(WebDriver driver, String xpathLocator, String... dynamicValues) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getWebElementByXpath(driver, getDynamicLocatorXpath(xpathLocator, dynamicValues)));
+	}
 
 	public void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove, LocatorType type) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", getWebElement(driver, locator, type));
@@ -508,7 +513,6 @@ public class BasePage {
 	public HomePageObject clickToLogoutLink(WebDriver driver) {
 		waitForElementClickable(driver, BasePageUI.LOGOUT_LINK);
 		clickToElement(driver,  BasePageUI.LOGOUT_LINK);
-		sleepInsecond(2);
 		return PageGeneraterManager.getHomePageObject(driver);
 	}
 

@@ -8,6 +8,7 @@ import pageObjects.CustomerInfoPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.MyAccountPageObject;
+import pageObjects.ProductPageObject;
 import pageObjects.RegisterPageObject;
 
 public class PageGeneraterManager {
@@ -38,5 +39,8 @@ public class PageGeneraterManager {
 	public static ChangePasswordPageObject getChangePasswordPageObject(WebDriver driver) {
 		return new ChangePasswordPageObject(driver);
 	}
-	
+
+	public static ProductPageObject getProductPageObject(WebDriver driver) {
+		return new ProductPageObject(driver);
+	}
 }

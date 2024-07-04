@@ -35,4 +35,11 @@ public class HomePageObject extends BasePage {
 		clickToElement(driver,  HomePageUI.MY_ACCOUNT_LINK);
 		return PageGeneraterManager.getMyAccountPageObject(driver);
 	}
+
+	public ProductPageObject clickToItemProduct(String nameProduct) {
+		waitForElementVisible(driver, HomePageUI.DYNAMIC_PRODUCT_NAME_LINK, nameProduct);
+		scrollToElement(driver, HomePageUI.DYNAMIC_PRODUCT_NAME_LINK, nameProduct);
+		clickToElement(driver,  HomePageUI.DYNAMIC_PRODUCT_NAME_LINK, nameProduct);
+		return PageGeneraterManager.getProductPageObject(driver);
+	}
 }
