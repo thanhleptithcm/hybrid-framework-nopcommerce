@@ -42,4 +42,10 @@ public class HomePageObject extends BasePage {
 		clickToElement(driver,  HomePageUI.DYNAMIC_PRODUCT_NAME_LINK, nameProduct);
 		return PageGeneraterManager.getProductPageObject(driver);
 	}
+
+	public SearchPageObject clickToSearchLink() {
+		waitForElementClickable(driver, HomePageUI.DYNAMIC_FEATURE_FOOTER, "Search");
+		clickToElement(driver,  HomePageUI.DYNAMIC_FEATURE_FOOTER, "Search");
+		return PageGeneraterManager.getSearchPageObject(driver);
+	}
 }

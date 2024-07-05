@@ -34,6 +34,7 @@ public class User_03_My_Account extends BaseTest {
 	
 	private String firstName, lastName, fullName, companyName, day, month, year, emailAddress, password;
 	private String city, address1, address2, postalCode, phoneNumber, faxNumber, country, passwordNew;
+	private String titleReview, descReview, ratingReview;
 	
 	@Parameters({"browser", "url"})
     @BeforeClass
@@ -52,6 +53,7 @@ public class User_03_My_Account extends BaseTest {
 		
 		emailAddress = Common_01_User_Register.emailAddress;
 		password = Common_01_User_Register.password;
+		passwordNew = "111111";
 		
 		city = "Ho Chi Minh";
 		address1 = "123 Le Hong Phong";
@@ -61,7 +63,9 @@ public class User_03_My_Account extends BaseTest {
 		faxNumber = "0238137492";
 		country = "Viet Nam";
 		
-		passwordNew = "111111";
+		titleReview = "Review Product";
+		descReview = "Good Product";
+		ratingReview = "5";
 	 	
 //	 	homePage.setCookies(driver, Common_01_User_Register.loggedCookies);
 //	 	homePage.refreshCurrentPage(driver);
@@ -74,7 +78,7 @@ public class User_03_My_Account extends BaseTest {
 		loginPage.clickToLoginButton();
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
 		myAccountPage = homePage.clickToMyAccountLink();
-		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
+		Assert.assertEquals(myAccountPage.getTitleHeader(driver), "My account - Customer info");
 	}
 	
 	@Test
@@ -167,10 +171,10 @@ public class User_03_My_Account extends BaseTest {
 		changePasswordPage.clickToButtonByText(driver, "Change password");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 04: Verify Change password success");
-		Assert.assertEquals(changePasswordPage.getPasswordWasChangedAtTextBox(), "Password was changed");
+		Assert.assertEquals(changePasswordPage.getTextAtBarNotification(driver), "Password was changed");
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 05: Click to Close button");
-		changePasswordPage.clickToCloseBarNotification();
+		changePasswordPage.clickToCloseBarNotification(driver);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 06: Click to Logout link");
 		homePage = changePasswordPage.clickToLogoutLink(driver);
@@ -202,6 +206,8 @@ public class User_03_My_Account extends BaseTest {
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 03 - Step 15: Verify My Account Displayed");
 		Assert.assertTrue(homePage.isMyAccountLinkDisplayed());
+		
+		Common_01_User_Register.password = passwordNew;
 	}
 	
 	@Test
@@ -214,12 +220,26 @@ public class User_03_My_Account extends BaseTest {
 		productPage.clickToAddReview();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 03: Input to required fields");
-		productPage.inputToTextboxByID(driver, "AddProductReview_Title", "Review Product");
-		productPage.inputToReviewTextArea("Review Product");
-		productPage.chooseRatingByRadio();
+		productPage.inputToTextboxByID(driver, "AddProductReview_Title", titleReview);
+		productPage.inputToReviewTextArea(descReview);
+		productPage.chooseRatingByRadio(ratingReview);
 		
 		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 03: Click to Submit Review button");
 		productPage.clickToButtonByText(driver, "Submit review");
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 04: Verify Product Review success");
+		Assert.assertEquals(productPage.getTextAtBarNotification(driver), "Product review is successfully added.");
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 05: Click to Close button");
+		productPage.clickToCloseBarNotification(driver);
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 06: Move to Product Review");
+		productPage.moveToListReview();
+		
+		ExtentTestManager.getTest().log(Status.INFO, "My Account 04 - Step 07: Verify Displayed");
+		Assert.assertTrue(productPage.isReviewTitleDisplayed(titleReview));
+		Assert.assertEquals(productPage.getReviewRatingAtTextBox(), ratingReview);
+		Assert.assertTrue(productPage.isReviewDescriptionDisplayed(descReview));
 	}
 
 	@AfterClass

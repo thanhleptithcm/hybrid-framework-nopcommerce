@@ -6,5 +6,7 @@ public class HomePageUI {
 	public static final String MY_ACCOUNT_LINK = "//a[@class='ico-account']";
 	
 	public static final String DYNAMIC_PRODUCT_NAME_LINK = "//h2[@class='product-title']/a[text()='%s']";
+	public static final String DYNAMIC_FEATURE_FOOTER = "//a[text()='%s']";
+	
 	
 }

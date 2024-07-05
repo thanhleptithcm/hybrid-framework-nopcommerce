@@ -22,4 +22,11 @@ public class BasePageUI {
 	
 	public static final String DYNAMIC_VALUE_ADDRESSES_BY_CLASS = "//li[@class='%s']";
 	
+
+	public static final String BAR_NOTIFICATION_TEXT_BOX = "//div[@id='bar-notification']//p[@class='content']";
+	public static final String CLOSE_BAR_NOTIFICATION_SPAN = "//div[@class='bar-notification success']//span";
+	
+
+	public static final String TITLE_HEADER_H1 = "//div[@class='page-title']/h1";
+	
 }

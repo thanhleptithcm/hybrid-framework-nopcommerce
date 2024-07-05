@@ -22,7 +22,9 @@ import com.github.dockerjava.api.model.Driver;
 
 import pageObjects.HomePageObject;
 import pageUIs.BasePageUI;
+import pageUIs.ChangePasswordPageUI;
 import pageUIs.CustomerInfoUI;
+import pageUIs.MyAccountPageUI;
 
 public class BasePage {
 
@@ -224,9 +226,9 @@ public class BasePage {
 	public String getElementText(WebDriver driver, String locator, LocatorType type) {
 		return getWebElement(driver, locator, type).getText();
 	}
-
-	public String getElementTextByXpath(WebDriver driver, String locator) {
-		return getWebElementByXpath(driver, locator).getText();
+	
+	public String getElementTextByXpath(WebDriver driver, String xpathLocator, String... dynamicValues) {
+		return getWebElementByXpath(driver, getDynamicLocatorXpath(xpathLocator, dynamicValues)).getText();
 	}
 
 	public String getElementCssValue(WebDriver driver, String locator, LocatorType type, String propertyName) {
@@ -510,10 +512,26 @@ public class BasePage {
 		return getElementTextByXpath(driver, getDynamicLocatorXpath(BasePageUI.DYNAMIC_VALUE_ADDRESSES_BY_CLASS, valueClass) );
 	}
 	
+	public String getTextAtBarNotification(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.BAR_NOTIFICATION_TEXT_BOX);
+		return getElementText(driver, BasePageUI.BAR_NOTIFICATION_TEXT_BOX, LocatorType.XPATH);
+	}
+	
+	public void clickToCloseBarNotification(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.CLOSE_BAR_NOTIFICATION_SPAN);
+		clickToElement(driver, BasePageUI.CLOSE_BAR_NOTIFICATION_SPAN);
+		sleepInsecond(3);
+	}
+	
 	public HomePageObject clickToLogoutLink(WebDriver driver) {
 		waitForElementClickable(driver, BasePageUI.LOGOUT_LINK);
 		clickToElement(driver,  BasePageUI.LOGOUT_LINK);
 		return PageGeneraterManager.getHomePageObject(driver);
+	}
+	
+	public String getTitleHeader(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.TITLE_HEADER_H1);
+		return getElementText(driver, BasePageUI.TITLE_HEADER_H1, LocatorType.XPATH);
 	}
 
 	public void uploadMultipleFiles(WebDriver driver, String... fileNames) {

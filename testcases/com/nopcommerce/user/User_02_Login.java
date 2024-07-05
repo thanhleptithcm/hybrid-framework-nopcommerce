@@ -131,7 +131,7 @@ public class User_02_Login extends BaseTest {
 		myAccountPage = homePage.clickToMyAccountLink();
 		
 		ExtentTestManager.getTest().log(Status.INFO, "Login 05 - Step 04: Verify My Account displayed");
-		Assert.assertEquals(myAccountPage.getTitleHeader(), "My account - Customer info");
+		Assert.assertEquals(myAccountPage.getTitleHeader(driver), "My account - Customer info");
 	}
 	
 	@AfterClass(alwaysRun = true)

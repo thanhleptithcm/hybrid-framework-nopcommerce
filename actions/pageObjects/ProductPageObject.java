@@ -23,8 +23,27 @@ public class ProductPageObject  extends BasePage {
 		sendKeyToElement(driver, ProductPageUI.REVIEW_TEXT_AREA, value);
 	}
 
-	public void chooseRatingByRadio() {
-		waitForElementClickable(driver, ProductPageUI.RATING_RADIO, LocatorType.XPATH);
-		checkToDefaultCheckboxRadio(driver, ProductPageUI.RATING_RADIO, LocatorType.XPATH);
+	public void chooseRatingByRadio(String rating) {
+		waitForElementClickable(driver, ProductPageUI.RATING_RADIO, rating);
+		checkToDefaultCheckboxRadioByXpath(driver, ProductPageUI.RATING_RADIO, rating);
+	}
+
+	public boolean isReviewTitleDisplayed(String title) {
+		waitForElementVisible(driver, ProductPageUI.DYNAMIC_REVIEW_TITLE_TEXT_BOX, title);
+		return isElementDisplayed(driver, ProductPageUI.DYNAMIC_REVIEW_TITLE_TEXT_BOX, title);
+	}
+
+	public String getReviewRatingAtTextBox() {
+		waitForElementVisible(driver, ProductPageUI.REVIEW_RATING_TEXT_BOX);
+		return getElementText(driver, ProductPageUI.REVIEW_RATING_TEXT_BOX, LocatorType.XPATH);
+	}
+
+	public boolean isReviewDescriptionDisplayed(String desc) {
+		waitForElementVisible(driver, ProductPageUI.DYNAMIC_REVIEW_DESC_TEXT_BOX, desc);
+		return isElementDisplayed(driver, ProductPageUI.DYNAMIC_REVIEW_DESC_TEXT_BOX, desc);
+	}
+	
+	public void moveToListReview() {
+		scrollToElement(driver, ProductPageUI.EXISTING_REVIEW_TEXT_BOX);
 	}
 }

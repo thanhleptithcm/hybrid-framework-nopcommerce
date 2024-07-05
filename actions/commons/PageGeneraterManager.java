@@ -10,6 +10,7 @@ import pageObjects.LoginPageObject;
 import pageObjects.MyAccountPageObject;
 import pageObjects.ProductPageObject;
 import pageObjects.RegisterPageObject;
+import pageObjects.SearchPageObject;
 
 public class PageGeneraterManager {
 	public static HomePageObject getHomePageObject(WebDriver driver) {
@@ -42,5 +43,9 @@ public class PageGeneraterManager {
 
 	public static ProductPageObject getProductPageObject(WebDriver driver) {
 		return new ProductPageObject(driver);
+	}
+
+	public static SearchPageObject getSearchPageObject(WebDriver driver) {
+		return new SearchPageObject(driver);
 	}
 }
